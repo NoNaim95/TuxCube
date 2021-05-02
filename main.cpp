@@ -20,15 +20,15 @@ void* hackthread(void* args){
     while(1){
         myhack.update_enttlist();
 
-        if(myhack.entitynum > 0 && myhack.entitynum == Entity::entnum)
-            myhack.enttlist[0]->aimToEntity(myhack.enttlist[0]->getNearestEnt(myhack.enttlist,true));
+        if(myhack.enttlist.size() > 1)
+            myhack.enttlist[0]->aimToEntity(myhack.enttlist[0]->getNearestEnt(myhack.enttlist,false));
 
         printf("Number of players in Lobby according to hacknum: %d\n",myhack.entitynum);
         printf("enttlist.size() = %d\n",myhack.enttlist.size());
         for(auto& x : myhack.enttlist){
             printf("Player ingame: %s and his base is = 0x%x\n",x->name,x->base);
         }
-        usleep(1000000*0.01);
+        usleep(1000000*0.001);
 
         printf("\e[1;1H\e[2J");
     }
