@@ -17,4 +17,5 @@ struct Entity{
     
     Vec2* viewangles;
     Vec3* coords;
+    Vec3* cameracoords;
 };

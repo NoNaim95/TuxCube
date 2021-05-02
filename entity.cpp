@@ -8,12 +8,13 @@ Entity::Entity(uintptr_t base){
     this->name = (char*) (base + offsets::name);
     this->rifleammo = (int*) (base + offsets::rifleammo);
     this->coords = (Vec3*) (base + offsets::coordVec);
+    this->cameracoords = (Vec3*) (base + offsets::cameracoordVec);
     this->viewangles = (Vec2*) (base + offsets::viewAngleVec);
 }
 
 void Entity::aimToEntity(Entity* ent) {
-	float pitch = this->coords->GetPitchAngle(ent->coords);
-	float yaw = this->coords->GetYawAngle(ent->coords);
+	float pitch = this->cameracoords->GetPitchAngle(ent->cameracoords);
+	float yaw = this->cameracoords->GetYawAngle(ent->cameracoords);
 	Vec2 en = { yaw, pitch };
     *this->viewangles = en;
 }
@@ -24,13 +25,13 @@ Entity* Entity::getNearestEnt(std::vector<Entity*> enttlist, bool bMustBeEnemy) 
 	float mindist = 100000000.f;
 	for (int i = 1; i < enttlist.size() ; i++) {
 
-        printf("i = %d\n",i);
-        //printf("0x%x\n",enttlist[i]);
+        printf("First check if I need to consider %s\n",enttlist[i]->name);
+        printf("So his health is %d\n",*enttlist[i]->health);
 		if (*enttlist[i]->health < 0 || (bMustBeEnemy && (*enttlist[i]->team == *this->team)))
 			continue;
         puts("checking i");
 
-		float x = this->coords->DistanceFrom(enttlist[i]->coords);
+		float x = this->cameracoords->DistanceFrom(enttlist[i]->cameracoords);
 		if (x < mindist) {
 			mindist = x;
 			ii = i;

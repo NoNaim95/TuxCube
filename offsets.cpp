@@ -8,6 +8,7 @@ namespace offsets{
     uint32_t ihealth = 0x110;
     uint32_t rifleammo = 0x168;
     uint32_t coordVec = 0x38;
+    uint32_t cameracoordVec = 0x8;
     uint32_t viewAngleVec = 0x44;
     uint32_t name = 0x23d;
     uint32_t team = 0x344;
